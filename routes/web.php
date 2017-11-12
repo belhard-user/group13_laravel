@@ -11,4 +11,6 @@ Route::get('about', 'HomeController@about')->name('about');
 Route::group(['prefix' => 'db'], function(){
     Route::get('insert', 'DBController@insert');
     Route::get('select', 'DBController@select');
+    Route::get('update', 'DBController@update');
+    Route::get('delete', 'DBController@delete');
 });

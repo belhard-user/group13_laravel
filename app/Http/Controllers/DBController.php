@@ -57,4 +57,25 @@ class DBController extends Controller
 
         return view('db.index');
     }
+
+    public function update()
+    {
+        DB::table('test')
+            ->where('id', 3)
+            ->update([
+            'username' => 'Change 3',
+            'updated_at' => new \DateTime()
+            ])
+        ;
+
+        return view('db.index');
+    }
+
+    public function delete()
+    {
+        $r = DB::table('test')->where('age', '>', 40)->delete();
+
+        \Debugbar::info($r);
+        return view('db.index');
+    }
 }
