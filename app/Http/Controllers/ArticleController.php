@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Article;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -10,8 +11,7 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $articles = \DB::table('articles')
-            ->orderBy('updated_at', 'DESC')
+        $articles = Article::orderBy('updated_at', 'DESC')
             ->paginate(static::PER_PAGE)
         ;
 
@@ -27,22 +27,29 @@ class ArticleController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->except('_token');
-        $data = array_merge($data, [
-            'slug' => str_slug($request->get('title')),
-            'created_at' => new \DateTime(),
-            'updated_at' => new \DateTime()
-        ]);
-
-        \DB::table('articles')->insert($data);
+        Article::create($request->all());
 
         return redirect()->route('article.index');
     }
 
-    public function show($slug)
+    public function show(Article $article)
     {
-        $article = \DB::table('articles')->where('slug', $slug)->first();
+        return view('article.show', [
+            'article' => $article
+        ]);
+    }
 
-        dd($article);
+    public function edit(Article $article)
+    {
+        return view('article.edit', [
+            'article' => $article
+        ]);
+    }
+
+    public function update(Article $article, Request $request)
+    {
+        $article->update($request->all());
+
+        return redirect()->route('article.index');
     }
 }

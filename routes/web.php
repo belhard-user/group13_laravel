@@ -10,7 +10,9 @@ Route::get('about', 'HomeController@about')->name('about');
  */
 Route::group(['prefix' => 'blog'], function(){
     Route::get('/', 'ArticleController@index')->name('article.index');
-    Route::get('/{slug}/show', 'ArticleController@show')->name('article.show');
+    Route::get('/{article}/show', 'ArticleController@show')->name('article.show');
+    Route::get('/{article}/edit', 'ArticleController@edit')->name('article.edit');
+    Route::put('/{article}/update', 'ArticleController@update')->name('article.update');
     Route::get('add', 'ArticleController@add');
     Route::post('add', 'ArticleController@store')->name('article.store');
 });
@@ -23,6 +25,7 @@ Route::group(['prefix' => 'db'], function(){
     Route::get('select', 'DBController@select');
     Route::get('update', 'DBController@update');
     Route::get('delete', 'DBController@delete');
+    Route::get('model', 'DBController@model');
 });
 
 /*

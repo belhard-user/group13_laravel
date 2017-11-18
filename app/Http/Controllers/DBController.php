@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Test;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
 
@@ -76,6 +78,27 @@ class DBController extends Controller
         $r = DB::table('test')->where('age', '>', 40)->delete();
 
         \Debugbar::info($r);
+        return view('db.index');
+    }
+
+    public function model()
+    {
+        // $m = Test::where('id', 22)->delete();
+        // $r = Test::where('id', '>', 13)->get();
+        /*$m = Test::firstOrNew([
+            'username' => 'Юра',
+            'ip' => '127.0.0.1',
+            'age' => 37
+        ]);
+
+        $m->save();
+
+        \Debugbar::info($m);*/
+        $m = Test::all();
+        $m->each(function($el){
+            echo $el->created_at->diffForHumans() . "<br>";
+        });
+        die;
         return view('db.index');
     }
 }
