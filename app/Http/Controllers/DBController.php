@@ -101,4 +101,24 @@ class DBController extends Controller
         die;
         return view('db.index');
     }
+
+    public function createRecordToRelationTable()
+    {
+        $testRelation = \App\TestRelation::first();
+
+        echo $testRelation->test->username; die;
+
+        /*$tests = Test::all();
+
+        // $test->foo()->create(['address' => 'melnikayte ' . mt_rand(1, 100)]);
+        foreach ($tests as $test) {
+            echo $test->username;
+            echo "<hr>";
+            foreach ($test->foo as $item) {
+                echo $item->address . "<br>";
+            }
+        }
+        die;*/
+        return view('db.index');
+    }
 }

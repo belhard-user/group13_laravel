@@ -26,6 +26,7 @@ Route::group(['prefix' => 'db'], function(){
     Route::get('update', 'DBController@update');
     Route::get('delete', 'DBController@delete');
     Route::get('model', 'DBController@model');
+    Route::get('create-record', 'DBController@createRecordToRelationTable');
 });
 
 /*

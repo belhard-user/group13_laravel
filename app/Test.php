@@ -20,10 +20,16 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Test whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Test whereUsername($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\TestRelation[] $foo
  */
 class Test extends Model
 {
     protected $table = 'test';
 
     protected $fillable = ['username', 'ip', 'age'];
+
+    public function foo()
+    {
+        return $this->hasMany(TestRelation::class);
+    }
 }
