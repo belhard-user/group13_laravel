@@ -36,3 +36,7 @@ Route::group(['prefix' => 'request'], function(){
     Route::get('/', 'RequestController@index');
     Route::post('/', 'RequestController@putData');
 });
+
+Route::group(['prefix' => 'dashboard', 'namespace' => 'Admin', 'middleware' => 'admin'], function(){
+    Route::get('/', 'DashboardController@index')->name('dashboard.main');
+});
