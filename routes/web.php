@@ -13,7 +13,7 @@ Route::group(['prefix' => 'blog'], function(){
     Route::get('/{article}/show', 'ArticleController@show')->name('article.show');
     Route::get('/{article}/edit', 'ArticleController@edit')->name('article.edit');
     Route::put('/{article}/update', 'ArticleController@update')->name('article.update');
-    Route::get('add', 'ArticleController@add');
+    Route::get('add', 'ArticleController@add')->name('article.add');
     Route::post('add', 'ArticleController@store')->name('article.store');
 });
 

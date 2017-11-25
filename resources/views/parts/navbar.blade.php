@@ -21,6 +21,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="{{ route('home') }}">Главная</a></li>
                 <li><a href="{{ route('about') }}">О нас</a></li>
+                <li><a href="{{ route('article.index') }}">Блог</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->

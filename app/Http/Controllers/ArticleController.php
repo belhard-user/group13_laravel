@@ -9,6 +9,11 @@ class ArticleController extends Controller
 {
     const PER_PAGE = 15;
 
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     public function index()
     {
         $articles = Article::orderBy('updated_at', 'DESC')
