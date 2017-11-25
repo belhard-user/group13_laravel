@@ -5,6 +5,10 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('about', 'HomeController@about')->name('about');
 
+Route::get('validate', 'ValidateControlle@index');
+Route::get('validate/form', 'ValidateControlle@form');
+Route::post('validate/form', 'ValidateControlle@store');
+
 /*
  * Article area
  */
