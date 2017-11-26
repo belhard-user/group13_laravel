@@ -32,4 +32,9 @@ class Test extends Model
     {
         return $this->hasMany(TestRelation::class);
     }
+
+    public function specialty()
+    {
+        return $this->belongsToMany(Specialty::class);
+    }
 }

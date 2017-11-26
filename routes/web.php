@@ -31,6 +31,8 @@ Route::group(['prefix' => 'db'], function(){
     Route::get('delete', 'DBController@delete');
     Route::get('model', 'DBController@model');
     Route::get('create-record', 'DBController@createRecordToRelationTable');
+    Route::get('specialties', 'DBController@specialties');
+    Route::get('many-to-many', 'DBController@manyToMany');
 });
 
 /*

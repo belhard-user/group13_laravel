@@ -121,4 +121,42 @@ class DBController extends Controller
         die;*/
         return view('db.index');
     }
+
+    public function specialties()
+    {
+        $data = [
+            ['name' => 'Тракторист'],
+            ['name' => 'Пекарь'],
+            ['name' => 'программист'],
+            ['name' => 'токарь'],
+            ['name' => 'электрик'],
+            ['name' => 'сантехник']
+        ];
+
+        \App\Specialty::insert($data);
+        return view('db.index');
+    }
+
+    public function manyToMany()
+    {
+        /*$spec = \App\Specialty::find(10);
+
+        $spec->test()->attach( range(1, 4) );*/
+        $test = Test::all();
+
+
+        foreach($test as $item){
+            echo $item->username . "<br>";
+            foreach($item->specialty as $spec){
+                echo $spec->name;
+                echo "&nbsp;";
+            }
+            echo "<br>";
+        }
+
+        // $test->specialty()->attach([5, 6]);
+        // $test->specialty()->detach([5, 7]);
+
+        return view('db.index');
+    }
 }
