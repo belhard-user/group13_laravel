@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', config('app.name'))</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @section('css')
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @show
 </head>
 <body>
 @include('parts.navbar')
@@ -16,7 +18,9 @@
     @yield('ad')
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    @section('js')
+        <script src="{{ asset('js/app.js') }}"></script>
+    @show
     @yield('footer.js')
 </body>
 </html>
