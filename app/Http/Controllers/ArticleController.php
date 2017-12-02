@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Http\Requests\ArticleRequest;
+use DB;
 
 class ArticleController extends Controller
 {
@@ -34,15 +35,15 @@ class ArticleController extends Controller
     {
         $tagIds = $request->get('tag_id');
         try {
-            \DB::beginTransaction();
+            DB::beginTransaction();
             $article = $request
                 ->user()
                 ->articles()
                 ->create($request->all());
             $article->tags()->attach($tagIds);
-            \DB::commit();
+            DB::commit();
         }catch(\Exception $e){
-            \DB::rollBack();
+            DB::rollBack();
         }
 
         return redirect()->route('article.index');
@@ -64,12 +65,16 @@ class ArticleController extends Controller
 
     public function update(Article $article, ArticleRequest $request)
     {
-        $tagsIds = $request->get('tag_id');
-        $article->update($request->all());
+        try {
+            DB::beginTransaction();
+            $tagsIds = $request->get('tag_id');
+            $article->update($request->all());
 
-        $article->tags()->sync($tagsIds);
-        /*$article->tags()->detach();
-        $article->tags()->attach($tagsIds);*/
+            $article->tags()->sync($tagsIds);
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+        }
 
         return redirect()->route('article.index');
     }
