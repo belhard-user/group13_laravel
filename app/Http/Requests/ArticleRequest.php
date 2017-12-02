@@ -23,9 +23,12 @@ class ArticleRequest extends FormRequest
      */
     public function rules()
     {
+        $tagsIds = \App\Tag::pluck('id');
+
         $rules = [
             'title' => 'required|min:3|unique:articles',
-            'description' => 'required'
+            'description' => 'required',
+            'tag_id.*' => 'required|in:' . implode(',', $tagsIds->toArray())
         ];
 
         if ('article.update' == array_get($this->route()->action, 'as')) {

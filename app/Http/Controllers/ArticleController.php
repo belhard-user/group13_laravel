@@ -32,12 +32,18 @@ class ArticleController extends Controller
 
     public function store(ArticleRequest $request)
     {
-        // Article::create($request->all());
-        $request
-            ->user()
-            ->articles()
-            ->create($request->all())
-        ;
+        $tagIds = $request->get('tag_id');
+        try {
+            \DB::beginTransaction();
+            $article = $request
+                ->user()
+                ->articles()
+                ->create($request->all());
+            $article->tags()->attach($tagIds);
+            \DB::commit();
+        }catch(\Exception $e){
+            \DB::rollBack();
+        }
 
         return redirect()->route('article.index');
     }
@@ -58,7 +64,12 @@ class ArticleController extends Controller
 
     public function update(Article $article, ArticleRequest $request)
     {
+        $tagsIds = $request->get('tag_id');
         $article->update($request->all());
+
+        $article->tags()->sync($tagsIds);
+        /*$article->tags()->detach();
+        $article->tags()->attach($tagsIds);*/
 
         return redirect()->route('article.index');
     }
