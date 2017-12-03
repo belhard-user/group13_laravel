@@ -8,7 +8,7 @@ use DB;
 
 class ArticleController extends Controller
 {
-    const PER_PAGE = 15;
+
 
     public function __construct()
     {
@@ -17,8 +17,8 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $articles = Article::orderBy('updated_at', 'DESC')
-            ->paginate(static::PER_PAGE)
+        $articles = Article::with('tags')->orderBy('updated_at', 'DESC')
+            ->paginate(Article::PER_PAGE)
         ;
 
         return view('article.index', [

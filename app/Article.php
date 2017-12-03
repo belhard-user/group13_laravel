@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Article extends Model
 {
+    const PER_PAGE = 15;
+
     protected $fillable = [
         'title', 'description', 'slug'
     ];

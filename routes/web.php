@@ -9,6 +9,8 @@ Route::get('validate', 'ValidateControlle@index');
 Route::get('validate/form', 'ValidateControlle@form');
 Route::post('validate/form', 'ValidateControlle@store');
 
+Route::get('blog/tag/{tag_slug}', 'TagController@index')->name('tag');
+
 /*
  * Article area
  */

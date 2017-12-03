@@ -27,4 +27,14 @@ class Tag extends Model
             $view->with('tagList', static::tagList());
         });
     }
+
+    public function articles()
+    {
+        return $this->belongsToMany(Article::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }
