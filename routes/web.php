@@ -9,6 +9,8 @@ Route::get('validate', 'ValidateControlle@index');
 Route::get('validate/form', 'ValidateControlle@form');
 Route::post('validate/form', 'ValidateControlle@store');
 
+
+/* Tag page */
 Route::get('blog/tag/{tag_slug}', 'TagController@index')->name('tag');
 
 /*
@@ -47,4 +49,9 @@ Route::group(['prefix' => 'request'], function(){
 
 Route::group(['prefix' => 'dashboard', 'namespace' => 'Admin', 'middleware' => 'admin'], function(){
     Route::get('/', 'DashboardController@index')->name('dashboard.main');
+});
+
+Route::group(['prefix' => 'upload-file'], function(){
+    Route::get('/', 'UploadController@index');
+    Route::post('/', 'UploadController@loadFile');
 });
