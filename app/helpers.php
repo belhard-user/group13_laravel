@@ -19,5 +19,5 @@ function getLabelClass()
  */
 function flash()
 {
-    return new \App\Classes\Flash();
+    return app('flash');
 }

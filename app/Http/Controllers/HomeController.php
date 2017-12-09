@@ -8,6 +8,7 @@ class HomeController extends Controller
 {
     public function index()
     {
+        \F::success('Hello facade');
         return view('home.index');
     }
 
