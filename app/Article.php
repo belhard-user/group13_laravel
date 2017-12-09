@@ -61,4 +61,9 @@ class Article extends Model
     {
         return $this->tags()->pluck('id');
     }
+
+    public function images()
+    {
+        return $this->hasMany(ArticleImage::class);
+    }
 }

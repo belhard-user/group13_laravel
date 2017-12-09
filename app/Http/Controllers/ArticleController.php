@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Classes\UplaodImage;
 use App\Http\Requests\ArticleRequest;
 use DB;
 use League\Flysystem\Exception;
@@ -18,7 +19,7 @@ class ArticleController extends Controller
 
     public function index()
     {
-        $articles = Article::with('tags')->orderBy('updated_at', 'DESC')
+        $articles = Article::with('tags', 'images')->orderBy('updated_at', 'DESC')
             ->paginate(Article::PER_PAGE)
         ;
 
@@ -43,11 +44,16 @@ class ArticleController extends Controller
                 ->articles()
                 ->create($request->all());
             $article->tags()->attach($tagIds);
+            if($request->hasFile('images')){
+                ( new UplaodImage($article, $request->file('images')) )->save();
+            }
+
             DB::commit();
             flash()->success('Новость добавлена');
         }catch(\Exception $e){
             DB::rollBack();
             flash()->danger('Новость не добавлена');
+            dd($e->getMessage());
         }
 
 
@@ -77,6 +83,10 @@ class ArticleController extends Controller
 
             $article->tags()->sync($tagsIds);
             DB::commit();
+
+            if($request->hasFile('images')){
+                ( new UplaodImage($article, $request->file('images')) )->save();
+            }
 
             flash()->success("Новость ".$article->title." обновлена");
         }catch(\Exception $e){

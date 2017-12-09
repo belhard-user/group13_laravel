@@ -2,6 +2,10 @@
 
 Auth::routes();
 
+Route::get('disk', function(){
+    \Storage::disk('my')->append('hey.log', "hello\n");
+});
+
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('about', 'HomeController@about')->name('about');
 

@@ -16,8 +16,10 @@ class UploadController extends Controller
         $allPath = [];
         if($request->hasFile('photo')){
             foreach($request->file('photo') as $file) {
-                $path = $file->move('multiple-images', $this->getName($file));
-                $allPath[] = $path->getPathname();
+                // $path = $file->store('multiple-images', $this->getName($file));
+                $path = $file->storeAs('multiple-images', $this->getName($file), 'images');
+                // $allPath[] = $path->getPathname();
+                $allPath[] = \Storage::disk('images')->url($path);
             }
         }
 

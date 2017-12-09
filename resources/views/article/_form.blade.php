@@ -12,6 +12,11 @@
     {{ Form::select('tag_id[]', $tagList, null, ['class' => 'form-control js-select', 'multiple']) }}
 </div>
 
+<div class="form-group">
+    {{ Form::label('description', 'Тэги') }}
+    {{ Form::file('images[]', ['multiple' => true]) }}
+</div>
+
 <button type="submit" class="btn btn-primary">{{ $btnText }}</button>
 
 @section('css')
